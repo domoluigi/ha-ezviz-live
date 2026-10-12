@@ -9,6 +9,6 @@
   "iot_class": "cloud_push",
   "issue_tracker": "https://github.com/domoluigi/ha-ezviz-live/issues",
   "loggers": ["pyezvizapi", "paho"],
-  "requirements": ["pyezvizapi==1.0.5.0"],
-  "version": "0.1.0"
+  "requirements": ["pyezvizapi>=1.0.5.0"],
+  "version": "0.1.1"
 }
