@@ -1,0 +1,79 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "EZVIZ account",
+        "description": "Log in with the EZVIZ app account. The password is used once and never stored: only the session token is saved.",
+        "data": {
+          "email": "Email",
+          "password": "Password",
+          "region": "API server"
+        },
+        "data_description": {
+          "region": "apiieu.ezvizlife.com for Europe."
+        }
+      },
+      "mfa": {
+        "title": "Verification code",
+        "description": "EZVIZ sent a verification code to your email or phone.",
+        "data": {
+          "mfa_code": "Code"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Invalid email or password.",
+      "cannot_connect": "Cannot reach the EZVIZ cloud.",
+      "invalid_mfa": "The code must contain digits only."
+    },
+    "abort": {
+      "already_configured": "This account is already configured.",
+      "reauth_successful": "Login renewed.",
+      "wrong_account": "Log in with the same account used before."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Live view",
+        "data": {
+          "max_live_seconds": "Maximum live session length"
+        },
+        "data_description": {
+          "max_live_seconds": "Battery devices stay awake while streaming: a session is closed after this time even if someone is still watching."
+        }
+      }
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "live_active": {
+        "name": "Live active"
+      }
+    },
+    "event": {
+      "alarm": {
+        "name": "Alarm",
+        "state_attributes": {
+          "event_type": {
+            "state": {
+              "motion": "Motion",
+              "doorbell": "Doorbell",
+              "other": "Other"
+            }
+          }
+        }
+      }
+    },
+    "image": {
+      "last_event_picture": {
+        "name": "Last event picture"
+      }
+    },
+    "camera": {
+      "live_compat": {
+        "name": "Compatible (MJPEG)"
+      }
+    }
+  }
+}

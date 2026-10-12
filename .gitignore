@@ -1,0 +1,7 @@
+# private captures (video, pictures) and probe scripts with device data: never publish
+fase0/
+dev/
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/

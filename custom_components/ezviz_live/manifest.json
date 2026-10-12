@@ -1,0 +1,14 @@
+{
+  "domain": "ezviz_live",
+  "name": "EZVIZ Live",
+  "codeowners": ["@domoluigi"],
+  "config_flow": true,
+  "dependencies": ["ffmpeg", "http"],
+  "documentation": "https://github.com/domoluigi/ha-ezviz-live",
+  "integration_type": "hub",
+  "iot_class": "cloud_push",
+  "issue_tracker": "https://github.com/domoluigi/ha-ezviz-live/issues",
+  "loggers": ["pyezvizapi", "paho"],
+  "requirements": ["pyezvizapi==1.0.5.0"],
+  "version": "0.1.0"
+}

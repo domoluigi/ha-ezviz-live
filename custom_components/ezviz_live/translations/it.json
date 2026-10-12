@@ -1,0 +1,79 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Account EZVIZ",
+        "description": "Accedi con l'account dell'app EZVIZ. La password serve solo per l'accesso e non viene salvata: si conserva soltanto il token di sessione.",
+        "data": {
+          "email": "Email",
+          "password": "Password",
+          "region": "Server API"
+        },
+        "data_description": {
+          "region": "apiieu.ezvizlife.com per l'Europa."
+        }
+      },
+      "mfa": {
+        "title": "Codice di verifica",
+        "description": "EZVIZ ha inviato un codice di verifica via email o SMS.",
+        "data": {
+          "mfa_code": "Codice"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Email o password non validi.",
+      "cannot_connect": "Il cloud EZVIZ non risponde.",
+      "invalid_mfa": "Il codice deve contenere solo cifre."
+    },
+    "abort": {
+      "already_configured": "Questo account è già configurato.",
+      "reauth_successful": "Accesso rinnovato.",
+      "wrong_account": "Accedi con lo stesso account usato in precedenza."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Diretta",
+        "data": {
+          "max_live_seconds": "Durata massima della diretta"
+        },
+        "data_description": {
+          "max_live_seconds": "I dispositivi a batteria restano svegli durante la diretta: la sessione viene chiusa dopo questo tempo anche se qualcuno sta ancora guardando."
+        }
+      }
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "live_active": {
+        "name": "Diretta attiva"
+      }
+    },
+    "event": {
+      "alarm": {
+        "name": "Allarme",
+        "state_attributes": {
+          "event_type": {
+            "state": {
+              "motion": "Movimento",
+              "doorbell": "Campanello",
+              "other": "Altro"
+            }
+          }
+        }
+      }
+    },
+    "image": {
+      "last_event_picture": {
+        "name": "Foto ultimo evento"
+      }
+    },
+    "camera": {
+      "live_compat": {
+        "name": "Compatibile (MJPEG)"
+      }
+    }
+  }
+}
