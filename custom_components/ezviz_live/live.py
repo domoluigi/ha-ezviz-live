@@ -57,7 +57,23 @@ _FIRST_DATA_TIMEOUT = 30.0  # seconds a consumer waits for the device to wake
 _IDLE_GRACE_SECONDS = 3.0  # keep the hub alive briefly when the last consumer leaves
 _SUBSCRIBER_BACKLOG = 2000  # queued chunks before a stuck consumer is dropped
 
-_FFMPEG_INPUT = ["-hide_banner", "-loglevel", "error", "-fflags", "+genpts", "-f", "mpeg", "-i", "pipe:0"]
+# ffmpeg probes an MPEG-PS input for 5 s by default before writing anything: on a
+# CP4 that was 5.2 s of the ~9.6 s to first output. The stream opens with a
+# keyframe and the audio follows within 0.1 s, so 1 s still finds both tracks
+# (checked on a CP4 capture down to 0.5 s). Idea from bvis/ezviz-cloud-hass.
+_FFMPEG_INPUT = [
+    "-hide_banner",
+    "-loglevel",
+    "error",
+    "-fflags",
+    "+genpts",
+    "-analyzeduration",
+    "1000000",
+    "-f",
+    "mpeg",
+    "-i",
+    "pipe:0",
+]
 
 MODE_TS = "ts"
 MODE_MJPEG = "mjpeg"
@@ -516,6 +532,16 @@ async def async_serve_live(
         await response.prepare(request)
         try:
             async for data in remux.output():
+                if not bytes_out:
+                    now = time.monotonic()
+                    _LOGGER.debug(
+                        "Live stream of %s (%s): first output %.1f s after the request, "
+                        "%.1f s after the device's first data",
+                        serial,
+                        mode,
+                        now - started,
+                        now - hub.first_data_at if hub.first_data_at else -1.0,
+                    )
                 await response.write(data)
                 bytes_out += len(data)
         except ConnectionResetError:

@@ -39,7 +39,7 @@ Richiede Home Assistant **2026.10** o successivo.
 - **Una sola sessione per dispositivo**: un dispositivo a batteria regge una diretta alla volta (due sessioni contemporanee si bloccano a vicenda). L'integrazione apre una sessione e la condivide fra tutti gli spettatori (HLS, go2rtc, MJPEG); ognuno ha il suo `ffmpeg` (solo rimux, nessuna ricodifica per l'HEVC).
 - La sessione si chiude **3 s dopo** che l'ultimo spettatore ha chiuso, oppure alla **durata massima**. Dopo il limite le nuove richieste sono rifiutate per 2 minuti, così i ritentativi automatici dei player non tengono sveglio il dispositivo.
 - Se il cloud chiude la sessione mentre qualcuno guarda (un CP4 lo fa dopo circa due minuti), viene riaperta da sola: si vede un breve blocco del video. Dopo tre segmenti troppo corti di fila l'integrazione rinuncia, per non svegliare il dispositivo a ripetizione.
-- Tempi misurati su un CP4: primo dato dal dispositivo in 4–5 s, video sul telefono in circa 8 s (HLS).
+- Tempi misurati su un CP4: primo dato dal dispositivo in 4–6 s (risveglio), primo byte dopo ffmpeg 1,1 s più tardi, video sul telefono in circa 5 s (HLS). L'analisi dell'ingresso di ffmpeg è limitata a 1 s: con il valore predefinito (5 s) il video arrivava dopo circa 8 s.
 - Il flusso interno è servito solo a indirizzi locali, con un codice d'accesso casuale che cambia a ogni avvio.
 
 ## Eventi
